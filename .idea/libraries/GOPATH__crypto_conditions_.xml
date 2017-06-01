@@ -1,0 +1,29 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;crypto-conditions&gt;">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../ed25519" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../kythe" />
+      <root url="file://$PROJECT_DIR$/../.idea" />
+      <root url="file://$PROJECT_DIR$/../fabric" />
+      <root url="file://$PROJECT_DIR$/../unicontractback" />
+      <root url="file://$PROJECT_DIR$/../log" />
+      <root url="file://$PROJECT_DIR$/../unicontract" />
+      <root url="file://$PROJECT_DIR$/../mutilpiplines" />
+    </CLASSES>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../ed25519" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../kythe" />
+      <root url="file://$PROJECT_DIR$/../.idea" />
+      <root url="file://$PROJECT_DIR$/../fabric" />
+      <root url="file://$PROJECT_DIR$/../unicontractback" />
+      <root url="file://$PROJECT_DIR$/../log" />
+      <root url="file://$PROJECT_DIR$/../unicontract" />
+      <root url="file://$PROJECT_DIR$/../mutilpiplines" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>
