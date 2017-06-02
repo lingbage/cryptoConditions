@@ -11,7 +11,7 @@ import (
 	"strings"
 
 	"crypto-conditions/encoding"
-	"github.com/agl/ed25519"
+	"golang.org/x/crypto/ed25519"
 )
 
 func sliceTo64Byte(slice []byte) [64]byte {
@@ -33,12 +33,12 @@ func sliceTo32Byte(slice []byte) [32]byte {
 }
 
 type Fulfillment struct {
-	PublicKey               [32]byte
+	PublicKey               []byte
 	MessageId               []byte
 	FixedMessage            []byte
 	MaxDynamicMessageLength uint64
 	DynamicMessage          []byte
-	Signature               [64]byte
+	Signature               []byte
 }
 
 // Serializes to the Crypto Conditions Fulfillment string format.
@@ -56,8 +56,8 @@ func (ful *Fulfillment) Serialize() string {
 }
 
 // Signs an in-memory Fulfillment
-func (ful *Fulfillment) Sign(privkey [64]byte) {
-	ful.Signature = *ed25519.Sign(&privkey, append(ful.FixedMessage, ful.DynamicMessage...))
+func (ful *Fulfillment) Sign(privkey []byte) {
+	ful.Signature = ed25519.Sign(privkey, append(ful.FixedMessage, ful.DynamicMessage...))
 }
 
 // Parses Fulfillment out of the Crypto Conditions string format,
@@ -88,7 +88,7 @@ func ParseFulfillment(s string) (*Fulfillment, error) {
 	if err != nil {
 		return nil, err
 	}
-	pubkey := sliceTo32Byte(pk)
+	pubkey := pk
 
 	messageId, b, err := encoding.GetVarbyte(b)
 	if err != nil {
@@ -113,11 +113,11 @@ func ParseFulfillment(s string) (*Fulfillment, error) {
 	if err != nil {
 		return nil, err
 	}
-	signature := sliceTo64Byte(sig)
-
+	//signature := sliceTo64Byte(sig)
+	signature := sig
 	// Check signature
 	fullMessage := append(fixedMessage, dynamicMessage...)
-	if !ed25519.Verify(&pubkey, fullMessage, &signature) {
+	if !ed25519.Verify(pubkey, fullMessage, signature) {
 		return nil, errors.New("signature not valid")
 	}
 
@@ -153,7 +153,7 @@ func (ful *Fulfillment) Condition() Condition {
 }
 
 type Condition struct {
-	PublicKey               [32]byte
+	PublicKey               []byte
 	MessageId               []byte
 	FixedMessage            []byte
 	MaxDynamicMessageLength uint64

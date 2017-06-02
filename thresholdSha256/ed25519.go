@@ -4,8 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"errors"
-
-	"github.com/agl/ed25519"
+	"golang.org/x/crypto/ed25519"
 )
 
 type Condition struct {
@@ -16,8 +15,8 @@ type Condition struct {
 }
 
 type Ed25519Fulfillment struct {
-	PublicKey [32]byte
-	Signature [64]byte
+	PublicKey []byte
+	Signature []byte
 }
 
 func ParseEd25519Fulfillment(payload []byte) (Ed25519Fulfillment, error) {
@@ -33,7 +32,7 @@ func Ed25519Validate(payload []byte, message []byte) error {
 		return err
 	}
 
-	if !ed25519.Verify(&ful.PublicKey, message, &ful.Signature) {
+	if !ed25519.Verify(ful.PublicKey, message, ful.Signature) {
 		return errors.New("signature not valid")
 	}
 
